@@ -1,10 +1,12 @@
+# factorio 2 dedicated server (выделенный сервер)
+
 - ВНИМАНИЕ, предназначено для deb подобных систем (debian, ubuntu)
 - рекомендуется на сервере актуализировать список репозиториев: https://github.com/Lojaleto/sources
 - предварительно создаём мир в локальной игре как сервер, настраиваем карту, прописываем администраторов, устанавливаем пароль
 - запускаем и сразу выходим
 - далее на выделеном сервере:
 ```bash
-apt install wget lynx screen git
+apt -y install wget lynx screen git
 git clone https://github.com/Lojaleto/factorio-2-dedicated-server.git
 cd ./factorio-2-dedicated-server
 
@@ -12,7 +14,9 @@ chmod +x ./install.sh ./start.sh ./stop.sh ./upgrade.sh
 ./install.sh
 ```
 <br>
-Настройка
+
+## Настройка
+
 - отредактируем файл указав администраторов сервера /home/factorio/factorioServer/server-adminlist.json  (или загрузите свой)
 - - забираем из папки C:\Users\[ваш пользователь]\AppData\Roaming\Factorio  файл server-adminlist.json
 
@@ -31,24 +35,28 @@ chown -R factorio:factorio /home/factorio/factorioServer
 systemctl start factorio
 ```
 <br>
-Донастройка
+
+## Донастройка
+
 - в cron хорошо бы добавить systemctl reload factorio, для обновления игры так:
 ```bash
 crontab -e
 ```
 - в конце добавить строку:
-0 6,18 * * * systemctl reload factorio
-- и оставить пустую строку после, иначе cron будет ругаться
+  > **0 6,18 * * * systemctl reload factorio**
+- - и оставить пустую строку после, иначе cron будет ругаться
 
 - выше cron назначен на 6 и 18 часов, в этот момент для обновления сервер будет приостанавливаться ~ на пол минуты
-- - первые два значения: 0 - минуты; 6,18 - часы. можно поменять или добавить часы
+- - первые два значения: 0 - минуты; 6,18 - часы (можно поменять или добавить часы через запятую)
 
 - либо можно запускать эту команду в ручную по необходимости:
 ```bash
 systemctl reload factorio
 ```
 <br>
-Работа с ошибками
+
+## Работа с ошибками
+
 - к сессии screen можно подключиться для просмотра лога так:
 ```bash
 screen -x factorio/factorio
