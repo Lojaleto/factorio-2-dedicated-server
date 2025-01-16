@@ -1,10 +1,9 @@
-# factorio 2 dedicated server (выделенный сервер)
+# factorio 2 space age dedicated server (выделенный сервер)
 
 - ВНИМАНИЕ, предназначено для deb подобных систем (debian, ubuntu)
 - рекомендуется на сервере актуализировать список репозиториев: https://github.com/Lojaleto/sources
-- предварительно создаём мир в локальной игре как сервер, настраиваем карту, прописываем администраторов, устанавливаем пароль
-- запускаем и сразу выходим
-- далее на выделеном сервере:
+
+- далее на сервере:
 ```bash
 apt -y install wget lynx screen git
 git clone https://github.com/Lojaleto/factorio-2-dedicated-server.git
@@ -17,18 +16,34 @@ chmod +x ./install.sh ./start.sh ./stop.sh ./upgrade.sh
 
 ## Настройка
 
-- отредактируем файл указав администраторов сервера /home/factorio/factorioServer/server-adminlist.json  (или загрузите свой)
-- - забираем из папки C:\Users\[ваш пользователь]\AppData\Roaming\Factorio  файл server-adminlist.json
+### копируем настройки и карту
+- предварительно создаём мир в локальной игре как сервер, настраиваем карту, прописываем администраторов, устанавливаем пароль
+- запускаем и сразу выходим
 
-- загрузим файл server-settings.json в /home/factorio/factorioServer/ (если хотим сохранить пароль и прочие настройки сервера)
-- - забираем из папки C:\Program Files (x86)\Steam\steamapps\common\Factorio\data  файл server-settings.json (возможно у вас расположение отличается)
+- отредактируем файл указав администраторов сервера ```/home/factorio/factorioServer/server-adminlist.json```  (или загрузите свой)
+- - забираем из папки ```C:\Users\[ваш пользователь]\AppData\Roaming\Factorio```  файл ```server-adminlist.json```
 
-- забираем из папки C:\Users\[ваш пользователь]\AppData\Roaming\Factorio\saves  файл с нужным сейвом и кладём в /home/factorio/factorioServer/saves/
+- загрузим файл ```server-settings.json``` в ```/home/factorio/factorioServer/``` (если хотим сохранить пароль и прочие настройки сервера)
+- - забираем из папки ```C:\Program Files (x86)\Steam\steamapps\common\Factorio\data```  файл ```server-settings.json``` (возможно у вас расположение отличается)
 
-- не забываем менять права на файл сохранения и на конфиги после загрузи их на сервер:
+- забираем из папки ```C:\Users\[ваш пользователь]\AppData\Roaming\Factorio\saves```  файл с нужным сейвом и кладём в ```/home/factorio/factorioServer/saves/```
+
+- не забываем менять права на файл сохранения и на конфиги после загрузки на сервер:
 ```bash
 chown -R factorio:factorio /home/factorio/factorioServer
 ```
+
+### либо можно сгенерировать настройки и карту
+
+- карту и конфиги можно сгенерировать прям на сервере командой:
+```bash
+su factorio
+/bin/bash -c "/home/factorio/factorioServer/bin/x64/factorio --create /home/factorio/factorioDedicated/saves/my.zip"
+```
+- - выйти из сеанса пользователя factorio: ctr+D
+- катра получится рандомная со стандартными настройками и без пароля
+
+###  готово
 
 - всё! можно запускать:
 ```bash
@@ -53,6 +68,8 @@ crontab -e
 ```bash
 systemctl reload factorio
 ```
+
+- добавление, влючение, отключение модов тут: ```/home/factorio/factorioServer/mods/mod-list.json```
 <br>
 
 ## Работа с ошибками
@@ -70,3 +87,22 @@ su factorio
 ```
 - остановить: ctr+C
 - выйти из сеанса пользователя factorio: ctr+D
+
+### маршрутизация
+
+- если сервер расположен за маршрутизатором (роутером), нужно пробросить порт 34197 (UDP)
+- для подключения используйте внешний (белый) ip, если клиенты расположены не в одной локальной сети
+
+### сохранения
+
+- сохранять игру можно в клиенте. если что то пойдёт не так можно остановить сервер и заменить сохранение
+```bash
+#запустить
+systemctl start factorio
+
+#остановить
+systemctl stop factorio
+
+#обновить
+systemctl reload factorio
+```
