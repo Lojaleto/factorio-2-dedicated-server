@@ -1,5 +1,4 @@
-ВНИМАНИЕ
-- предназначено для deb подобных систем (debian, ubuntu)
+- ВНИМАНИЕ, предназначено для deb подобных систем (debian, ubuntu)
 - рекомендуется на сервере актуализировать список репозиториев: https://github.com/Lojaleto/sources
 - предварительно создаём мир в локальной игре как сервер, настраиваем карту, прописываем администраторов, устанавливаем пароль
 - запускаем и сразу выходим
@@ -12,7 +11,8 @@ cd ./factorio-2-dedicated-server
 chmod +x ./install.sh ./start.sh ./stop.sh ./upgrade.sh
 ./install.sh
 ```
-
+<br>
+Настройка
 - отредактируем файл указав администраторов сервера /home/factorio/factorioServer/server-adminlist.json  (или загрузите свой)
 - - забираем из папки C:\Users\[ваш пользователь]\AppData\Roaming\Factorio  файл server-adminlist.json
 
@@ -30,7 +30,8 @@ chown -R factorio:factorio /home/factorio/factorioServer
 ```bash
 systemctl start factorio
 ```
-
+<br>
+Донастройка
 - в cron хорошо бы добавить systemctl reload factorio, для обновления игры так:
 ```bash
 crontab -e
@@ -46,7 +47,8 @@ crontab -e
 ```bash
 systemctl reload factorio
 ```
-
+<br>
+Работа с ошибками
 - к сессии screen можно подключиться для просмотра лога так:
 ```bash
 screen -x factorio/factorio
