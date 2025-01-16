@@ -1,0 +1,19 @@
+[Unit]
+Description=Factorio Server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=forking
+User=factorio
+Group=factorio
+ExecStart=/usr/bin/bash /home/factorio/factorioServer/start.sh
+ExecStop=/usr/bin/bash /home/factorio/factorioServer/stop.sh
+ExecReload=/usr/bin/bash /home/factorio/factorioServer/upgrade.sh
+WorkingDirectory=/home/factorio/factorioServer/
+Restart=always
+TimeoutStartSec=600
+
+[Install]
+WantedBy=multi-user.target
+
